@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Link - Translator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-blue: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-gradient);
+        }
+
+        .app-container { width: 90%; max-width: 900px; display: flex; flex-direction: column; align-items: center; }
+
+        .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+        .logo-icon { background: var(--primary-blue); color: white; padding: 10px; border-radius: 12px; }
+        .logo h1 { color: var(--text-main); font-size: 2rem; }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .language-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        select { width: 42%; padding: 10px; border-radius: 12px; }
+
+        .translation-area { display: flex; gap: 15px; margin-bottom: 25px; }
+        .input-box, .output-box { flex: 1; background: white; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; }
+
+        textarea { width: 100%; height: 180px; border: none; resize: none; outline: none; font-size: 1.1rem; }
+
+        .translate-btn {
+            background: var(--primary-blue);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .translate-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        @media (max-width: 768px) { .translation-area { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <main class="app-container">
+        <header class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <h1>K-Link</h1>
+        </header>
+
+        <section class="glass-card">
+            <div class="language-controls">
+                <select id="source-lang" class="searchable-select">
+                    <option value="auto">Auto-Detect Source</option>
+                </select>
+
+                <div class="swap-btn" style="color: var(--text-muted);"><i class="fa-solid fa-right-left"></i></div>
+
+                <select id="target-lang" class="searchable-select">
+                    <option value="auto" disabled selected>Target Language</option>
+                    {% for lang in languages %}
+                        <option value="{{ lang.name }}">{{ lang.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="translation-area">
+                <div class="input-box">
+                    <textarea placeholder="Enter text to translate...">Hello, how are you today?</textarea>
+                </div>
+
+                <div class="output-box">
+                    <textarea readonly placeholder="Translation will appear here..."></textarea>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button class="translate-btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Translate Now
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.searchable-select').select2();
+
+            document.querySelector('.translate-btn').addEventListener('click', async () => {
+                const text = document.querySelector('.input-box textarea').value;
+                const target_lang = document.getElementById('target-lang').value;
+                const outputArea = document.querySelector('.output-box textarea');
+                const btn = document.querySelector('.translate-btn');
+
+                if (!text || target_lang === "auto") {
+                    alert("Please enter text and select a target language.");
+                    return;
+                }
+
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Translating...';
+                btn.disabled = true;
+
+                try {
+                    const response = await fetch('/translate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text, target_lang })
+                    });
+                    const data = await response.json();
+                    outputArea.value = data.translated || data.error;
+                } catch (error) {
+                    alert("Connection failed.");
+                } finally {
+                    btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Translate Now';
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
