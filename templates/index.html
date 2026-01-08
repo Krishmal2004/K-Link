@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-Link | AI Translation & File Conversion</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -16,6 +18,56 @@
             --text-dark: #0f172a;
             --text-light: #64748b;
             --bg-light: #f8fafc;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: #ffffff;
+                padding: 1rem;
+                border-radius: 12px;
+                margin-top: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* --- Responsive Hero Section --- */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                /* Smaller font for mobile */
+            }
+
+            .hero-text {
+                font-size: 1.1rem;
+            }
+
+            .hero-img {
+                max-width: 90%;
+                /* Larger image relative to screen on mobile */
+                margin-top: 3rem;
+            }
+
+            .d-flex {
+                justify-content: center;
+                /* Center buttons on mobile */
+            }
+        }
+
+        /* --- Responsive Content Cards --- */
+        @media (max-width: 576px) {
+            .content-card {
+                padding: 1.5rem;
+                /* Less padding on small phones */
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
         }
 
         body {
@@ -47,7 +99,8 @@
             transition: 0.3s;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary-color) !important;
         }
 
@@ -111,8 +164,15 @@
 
         /* --- Animations --- */
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         /* --- Footer --- */
@@ -135,6 +195,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg sticky-top">
@@ -159,9 +220,12 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="hero-title">Beyond Words. <br>Universal AI Tools.</h1>
-                    <p class="hero-text">Smart Language Translation & Universal File Conversion. Power your workflow with AI-driven precision and speed.</p>
+                    <p class="hero-text">Smart Language Translation & Universal File Conversion. Power your workflow
+                        with AI-driven precision and speed.</p>
                     <div class="d-flex gap-3">
-                        <a href="translator.html" class="btn btn-primary btn-lg px-4 py-3 shadow-sm" style="background: var(--primary-color); border:none; border-radius: 12px;">Get Started <i class="fa fa-arrow-right ms-2"></i></a>
+                        <a href="translator.html" class="btn btn-primary btn-lg px-4 py-3 shadow-sm"
+                            style="background: var(--primary-color); border:none; border-radius: 12px;">Get Started <i
+                                class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center mt-5 mt-lg-0">
@@ -180,7 +244,9 @@
                             <i class="fa fa-wand-magic-sparkles"></i>
                         </div>
                         <h2 class="fw-bold mb-3">Keep Your Simple Tasks Simple</h2>
-                        <p class="text-secondary fs-5">K-Link is the first and only software you'll love. We provide all the tools you need to translate, manage, and finish your work with digital documents instantly.</p>
+                        <p class="text-secondary fs-5">K-Link is the first and only software you'll love. We provide all
+                            the tools you need to translate, manage, and finish your work with digital documents
+                            instantly.</p>
                     </div>
                 </div>
             </div>
@@ -201,4 +267,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
