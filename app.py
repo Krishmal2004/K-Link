@@ -4,25 +4,30 @@ from google import genai  # Modern Google AI SDK
 
 app = Flask(__name__)
 
-
 GEMINI_API_KEY = "AIzaSyARQS_zDlxP8nIgtIEmaFSnMBM4onNB8gU"
 
 # Initialize the Google Gen AI client
-client = genai.Client(api_key=GEMINI_API_KEY)
+client = genai. Client(api_key=GEMINI_API_KEY)
+
+def get_languages():
+    """Helper function to get sorted language list"""
+    return sorted([
+        {'code': lang.alpha_2, 'name': lang.name}
+        for lang in pycountry.languages if hasattr(lang, 'alpha_2')
+    ], key=lambda x:  x['name'])
 
 @app.route('/')
 def index():
-    # Automatically fetch all official ISO world languages with 2-letter codes
-    languages_list = sorted([
-        {'code': lang.alpha_2, 'name': lang.name}
-        for lang in pycountry.languages if hasattr(lang, 'alpha_2')
-    ], key=lambda x: x['name'])
-    return render_template('index.html', languages=languages_list)
+    return render_template('index.html', languages=get_languages())
+
+@app.route('/translator')  # ← ADD THIS ROUTE
+def translator():
+    return render_template('translator.html', languages=get_languages())
 
 @app.route('/translate', methods=['POST'])
 def translate():
     data = request.get_json()
-    target_lang = data.get('target_lang')
+    target_lang = data. get('target_lang')
     text = data.get('text')
 
     if not text or not target_lang:
@@ -42,7 +47,7 @@ def translate():
         )
         return jsonify({"translated": response.text.strip()})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error":  str(e)}), 500
 
 if __name__ == '__main__':
     # Run with debug=True to see errors during development
