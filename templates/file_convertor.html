@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="container mt-5">
+    <div class="card p-5 shadow-sm border-0 rounded-4">
+        <h2 class="text-center mb-4">Office File Converter</h2>
+        <p class="text-center text-muted">Supports PDF to Word and Word to Excel (Tables)</p>
+
+        <form action="/convert" method="post" enctype="multipart/form-data" class="text-center">
+            <div class="mb-4">
+                <label for="fileInput" class="form-label fw-bold">Select File</label>
+                <input type="file" name="file" id="fileInput" class="form-control" accept=".pdf,.docx" required>
+            </div>
+
+            <div class="alert alert-info py-2 small">
+                Note: PDF files will convert to Word. Word files will extract tables to Excel.
+            </div>
+
+            <button type="submit" class="btn btn-primary px-5 py-2">
+                <i class="fa fa-sync-alt me-2"></i> Convert & Download
+            </button>
+        </form>
+    </div>
+</div>
