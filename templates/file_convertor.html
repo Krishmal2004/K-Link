@@ -1,21 +1,21 @@
-<div class="container mt-5">
-    <div class="card p-5 shadow-sm border-0 rounded-4">
-        <h2 class="text-center mb-4">Office File Converter</h2>
-        <p class="text-center text-muted">Supports PDF to Word and Word to Excel (Tables)</p>
+<div class="card p-5 shadow-sm border-0 rounded-4">
+    <h2 class="text-center mb-4">Universal Converter</h2>
+    <form action="/convert" method="post" enctype="multipart/form-data">
 
-        <form action="/convert" method="post" enctype="multipart/form-data" class="text-center">
-            <div class="mb-4">
-                <label for="fileInput" class="form-label fw-bold">Select File</label>
-                <input type="file" name="file" id="fileInput" class="form-control" accept=".pdf,.docx" required>
-            </div>
+        <div class="mb-3">
+            <label class="form-label">Upload File</label>
+            <input type="file" name="file" class="form-control" required>
+        </div>
 
-            <div class="alert alert-info py-2 small">
-                Note: PDF files will convert to Word. Word files will extract tables to Excel.
-            </div>
+        <div class="mb-4">
+            <label class="form-label">Convert To:</label>
+            <select name="target_format" class="form-select">
+                <option value="docx">Word (.docx)</option>
+                <option value="xlsx">Excel Table (.xlsx)</option>
+                <option value="pdf">PDF (.pdf)</option>
+            </select>
+        </div>
 
-            <button type="submit" class="btn btn-primary px-5 py-2">
-                <i class="fa fa-sync-alt me-2"></i> Convert & Download
-            </button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary w-100">Convert Now</button>
+    </form>
 </div>
