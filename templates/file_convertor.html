@@ -17,56 +17,6 @@
             --bg-light: #f8fafc;
         }
 
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: #ffffff;
-                padding: 1rem;
-                border-radius: 12px;
-                margin-top: 1rem;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-        }
-
-        /* --- Responsive Hero Section --- */
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 60px 0;
-                text-align: center;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-                /* Smaller font for mobile */
-            }
-
-            .hero-text {
-                font-size: 1.1rem;
-            }
-
-            .hero-img {
-                max-width: 90%;
-                /* Larger image relative to screen on mobile */
-                margin-top: 3rem;
-            }
-
-            .d-flex {
-                justify-content: center;
-                /* Center buttons on mobile */
-            }
-        }
-
-        /* --- Responsive Content Cards --- */
-        @media (max-width: 576px) {
-            .content-card {
-                padding: 1.5rem;
-                /* Less padding on small phones */
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #ffffff;
@@ -74,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Navbar Styling --- */
+        /* --- Original Navbar Styling preserved --- */
         .navbar {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -100,6 +50,43 @@
         .nav-link.active {
             color: var(--primary-color) !important;
         }
+
+        /* --- New Responsive Converter Styling --- */
+        .file-converter-section {
+            padding: 80px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .border-box {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid #edf2f7;
+        }
+
+        .border-box h2 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .file-converter-section { padding: 40px 15px; }
+            .border-box { padding: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -119,5 +106,26 @@
             </div>
         </div>
     </nav>
+
+    <div class="file-converter-section">
+        <div class="border-box">
+            <h2>File Converter</h2>
+            <form action="{{ url_for('convert') }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="inputFile" class="form-label fw-bold">Upload File</label>
+                    <input class="form-control" type="file" id="inputFile" name="file" required>
+                </div>
+                <div class="mb-4">
+                    <label for="target_format" class="form-label fw-bold">Select Output Format</label>
+                    <select class="form-select" id="target_format" name="target_format" required>
+                        <option value="docx">PDF to DOCX</option>
+                        <option value="xlsx">DOCX to Excel (Tables)</option>
+                        <option value="pdf">Image to PDF</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Convert & Download</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
